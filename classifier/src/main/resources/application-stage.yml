@@ -1,0 +1,31 @@
+server:
+  port: 3300
+
+spring:
+  profiles:
+    active: @active.profile@
+  application:
+    name: @project.name@
+  output:
+    ansi:
+      enabled: always
+  main:
+    banner-mode: "off"
+
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: ${MSSQL_DB_CLASSIFIER_URL}
+    hikari:
+      username: ${MSSQL_DB_CLASSIFIER_USERNAME}
+      password: ${MSSQL_DB_CLASSIFIER_PASSWORD}
+      maximum-pool-size: 4
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+classifier:
+  data-update:
+    enabled: true
+    initial-delay: 60000
+    fixed-rate: 60000
