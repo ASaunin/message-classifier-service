@@ -1,6 +1,6 @@
 package com.asaunin.classifier.service;
 
-import com.asaunin.cache.SimpleLoadableCache;
+import com.asaunin.cache.DeletableSimpleCache;
 import com.asaunin.classifier.ClassifierCacheFactory;
 import com.asaunin.classifier.domain.BaseEntity;
 import com.asaunin.classifier.repository.LoadableRepository;
@@ -36,10 +36,10 @@ public class DataProvider implements Loadable {
     public void loadData() throws Exception {
         final Iterable<Class> types = factory.getTypes();
         for (Class type : types) {
-            final SimpleLoadableCache cache = (SimpleLoadableCache) factory.getCache(type);
+            final DeletableSimpleCache cache = (DeletableSimpleCache) factory.getCache(type);
             final LoadableRepository<BaseEntity, ?> repo = factory.getRepository(type);
             final Collection<BaseEntity> data = repo.findAll();
-            cache.load(data);
+            cache.upload(data);
 
         }
         this.lastUpdated = ZonedDateTime.now();

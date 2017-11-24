@@ -7,9 +7,9 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RequiredArgsConstructor
-public abstract class Cache<K, V> implements Cacheable<K, V> {
+public class Cache<K, V> implements Cacheable<K, V> {
 
-    final Map<K, V> cache = new ConcurrentHashMap<>();
+    private final Map<K, V> cache = new ConcurrentHashMap<>();
 
     @Override
     public int size() {
@@ -17,8 +17,18 @@ public abstract class Cache<K, V> implements Cacheable<K, V> {
     }
 
     @Override
+    public boolean isEmpty() {
+        return cache.isEmpty();
+    }
+
+    @Override
     public void clear() {
         cache.clear();
+    }
+
+    @Override
+    public boolean containsKey(K key) {
+        return cache.containsKey(key);
     }
 
     @Override

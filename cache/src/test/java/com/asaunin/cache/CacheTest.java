@@ -3,15 +3,19 @@ package com.asaunin.cache;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 
 public class CacheTest extends Cache<String, String> {
 
     @Test
-    public void checkPutAndGetOperations() {
+    public void putOperationsCheck() {
         final String key1 = "key1";
         final String key2 = "key2";
         final String value1 = "value1";
         final String value2 = "value2";
+
+        assertThat(isEmpty()).isTrue();
 
         assertThat(put(key1, value1)).isNotPresent();
         assertThat(size()).isOne();
@@ -30,7 +34,7 @@ public class CacheTest extends Cache<String, String> {
     }
 
     @Test
-    public void checkRemoveOperation() {
+    public void removeOperationsCheck() {
         final String key1 = "key1";
         final String key2 = "key2";
         final String key3 = "key3";
@@ -56,7 +60,7 @@ public class CacheTest extends Cache<String, String> {
     }
 
     @Test
-    public void checkClearOperation() {
+    public void clearOperationsCheck() {
         final String key1 = "key1";
         final String key2 = "key2";
         final String value1 = "value1";
@@ -70,6 +74,22 @@ public class CacheTest extends Cache<String, String> {
         assertThat(size()).isZero();
         assertThat(get(key1)).isNotPresent();
         assertThat(get(key2)).isNotPresent();
+    }
+
+    @Test
+    public void whenNullKeysOrValuesThanThrowNullPointerException() {
+        assertThatNullPointerExceptionIsThrownBy(() -> put(null, ""));
+        assertThatNullPointerExceptionIsThrownBy(() -> put(null, ""));
+        assertThatNullPointerExceptionIsThrownBy(() -> put("", null));
+        assertThatNullPointerExceptionIsThrownBy(() -> put(null, null));
+
+        assertThatNullPointerExceptionIsThrownBy(() -> remove(null));
+
+        assertThatNullPointerExceptionIsThrownBy(() -> get(null));
+    }
+
+    private void assertThatNullPointerExceptionIsThrownBy(ThrowingCallable throwingCallable) {
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(throwingCallable);
     }
 
 }
