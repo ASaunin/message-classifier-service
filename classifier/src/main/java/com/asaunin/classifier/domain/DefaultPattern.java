@@ -1,36 +1,31 @@
 package com.asaunin.classifier.domain;
 
-import lombok.Data;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Value;
 
-import javax.persistence.*;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
-@Data
-@Entity
-@EqualsAndHashCode(of = "id", callSuper = true)
+@Value
+@EqualsAndHashCode(exclude = {"id", "updatedAt"}, callSuper = true)
 public class DefaultPattern extends DeletableEntity {
 
-    @Id
-    @Column(name = "patternid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    @Column(name = "subcategoryid")
     private Integer subCategoryId;
-
-    @Column(name = "country")
     private String country;
-
-    @Column(name = "senderid")
     private String sender;
-
-    @Column(name = "bodypattern")
     private String regex;
+    private ZonedDateTime updatedAt;
 
-    @Column(name = "updatedat")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Transient
-    private Date updatedAt;
+    @Builder
+    public DefaultPattern(Integer id, boolean deleted, Integer subCategoryId, String country, String sender, String regex, ZonedDateTime updatedAt) {
+        super(deleted);
+        this.id = id;
+        this.subCategoryId = subCategoryId;
+        this.country = country;
+        this.sender = sender;
+        this.regex = regex;
+        this.updatedAt = updatedAt;
+    }
 
 }

@@ -17,12 +17,12 @@ public class RuleServiceTest {
     @Autowired private RuleService service;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         service.clear();
     }
 
     @Test
-    public void findBySubAccountId() throws Exception {
+    public void findBySubAccountId() {
 
     }
 

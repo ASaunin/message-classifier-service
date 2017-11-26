@@ -1,6 +1,6 @@
 package com.asaunin.classifier.repository;
 
-import com.asaunin.classifier.domain.Rule;
+import com.asaunin.classifier.domain.SubCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -11,50 +11,51 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Date;
 
 @Repository
 @RequiredArgsConstructor
-public abstract class RuleRepository implements LoadableRepository<Rule> {
+public abstract class SubCategoryRepository implements LoadableRepository<SubCategory> {
 
     protected final JdbcTemplate jdbcTemplate;
     protected final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Collection<Rule> findAll() {
-        final String sql = "SELECT RuleId, SubCategoryId, SubAccountUid, Country, Deleted, UpdatedAt " +
-                "FROM cls.Rule";
+    public Collection<SubCategory> findAll() {
+        final String sql = "SELECT SubCategoryId, SubCategory, Category, Deleted, UpdatedAt " +
+                "FROM cls.SubCategory";
         return jdbcTemplate.query(sql, this);
     }
 
     @Override
-    public Collection<Rule> findByUpdatedAtAfter(ZonedDateTime dateTime) {
-        final String sql = "SELECT RuleId, SubCategoryId, SubAccountUid, Country, Deleted, UpdatedAt " +
-                "FROM cls.Rule WHERE UpdatedAt > ?";
+    public Collection<SubCategory> findByUpdatedAtAfter(ZonedDateTime dateTime) {
+        final String sql = "SELECT SubCategoryId, SubCategory, Category, Deleted, UpdatedAt " +
+                "FROM cls.SubCategory WHERE UpdatedAt > ?";
         return jdbcTemplate.query(sql, this, Date.from(dateTime.toInstant()));
     }
 
     @Override
-    public void save(Rule entity) {
+    public void save(SubCategory entity) {
         final String sql =
-                "MERGE INTO cls.Rule(RuleId, SubCategoryId, SubAccountUid, Country, Deleted) " +
-                        "VALUES (:RuleId, :SubCategoryId, :SubAccountUid, :Country, :Deleted)";
+                "MERGE INTO cls.SubCategory(SubCategoryId, SubCategory, Category, Deleted) " +
+                        "VALUES (:SubCategoryId, :SubCategory, :Category, :Deleted)";
 
         namedParameterJdbcTemplate.update(sql, mapParams(entity));
     }
 
     @Nullable
     @Override
-    public Rule mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return Rule.builder()
-                .id(rs.getInt("RuleId"))
+    public SubCategory mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return SubCategory.builder()
+                .id(rs.getInt("SubCategoryId"))
                 .deleted(rs.getBoolean("Deleted"))
-                .subCategoryId(rs.getInt("SubCategoryId"))
-                .subAccountId(rs.getInt("SubAccountUid"))
-                .country(rs.getString("Country"))
+                .name(rs.getString("SubCategory"))
+                .category(rs.getString("Category"))
                 .updatedAt(hasColumn(rs, "UpdatedAt") ?
                         ZonedDateTime.ofInstant(
                                 rs.getTimestamp("UpdatedAt").toInstant(),
@@ -63,14 +64,14 @@ public abstract class RuleRepository implements LoadableRepository<Rule> {
                 .build();
     }
 
+
     @Override
-    public SqlParameterSource mapParams(Rule entity) {
+    public SqlParameterSource mapParams(SubCategory entity) {
         return new MapSqlParameterSource()
-                .addValue("RuleId", entity.getId())
-                .addValue("Deleted", entity.isDeleted())
-                .addValue("SubCategoryId", entity.getSubCategoryId())
-                .addValue("SubAccountUid", entity.getSubAccountId())
-                .addValue("Country", entity.getCountry());
+                .addValue("SubCategoryId", entity.getId())
+                .addValue("SubCategory", entity.getName())
+                .addValue("Category", entity.getCategory())
+                .addValue("Deleted", entity.isDeleted());
     }
 
 }

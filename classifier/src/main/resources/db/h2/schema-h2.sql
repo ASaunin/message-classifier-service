@@ -5,7 +5,7 @@ CREATE SCHEMA IF NOT EXISTS cls;
 DROP TABLE IF EXISTS cls.SubCategory;
 
 CREATE TABLE cls.SubCategory (
-  SubCategoryId SMALLINT                              NOT NULL,
+  SubCategoryId SMALLINT                              NOT NULL IDENTITY (1, 1),
   SubCategory   VARCHAR(20) UNIQUE                    NOT NULL,
   Category      VARCHAR(3)                            NOT NULL,
   Deleted       BIT                                   NOT NULL DEFAULT ((0)),

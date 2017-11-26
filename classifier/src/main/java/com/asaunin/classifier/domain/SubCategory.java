@@ -1,30 +1,27 @@
 package com.asaunin.classifier.domain;
 
-import lombok.Data;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Value;
 
-import javax.persistence.*;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
-@Data
-@Entity
-@EqualsAndHashCode(of = "id", callSuper = true)
+@Value
+@EqualsAndHashCode(exclude = {"id", "updatedAt"}, callSuper = true)
 public class SubCategory extends DeletableEntity {
 
-    @Id
-    @Column(name = "subcategoryid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    @Column(name = "subcategory")
     private String name;
-
-    @Column(name = "category")
     private String category;
+    private ZonedDateTime updatedAt;
 
-    @Column(name = "updatedat")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Transient
-    private Date updatedAt;
+    @Builder
+    public SubCategory(Integer id, boolean deleted, String name, String category, ZonedDateTime updatedAt) {
+        super(deleted);
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.updatedAt = updatedAt;
+    }
 
 }

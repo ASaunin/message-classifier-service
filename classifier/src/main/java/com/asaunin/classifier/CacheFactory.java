@@ -1,29 +1,26 @@
 package com.asaunin.classifier;
 
 import com.asaunin.cache.Cacheable;
-import org.springframework.data.repository.Repository;
-import org.springframework.data.util.Pair;
+import com.asaunin.classifier.repository.LoadableRepository;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.function.Consumer;
 
-public class CacheFactory<C extends Cacheable, R extends Repository> {
+public class CacheFactory<C extends Cacheable, R extends LoadableRepository> {
 
     private List<Class> types = new LinkedList<>();
 
     private Map<Class, C> caches = new LinkedHashMap<>();
     private Map<Class, R> repositories = new LinkedHashMap<>();
-    private Map<Class, Pair<C, R>> pairs = new LinkedHashMap<>();
+    private Map<Class, SimpleEntry<C, R>> pairs = new LinkedHashMap<>();
 
     public CacheFactory(Consumer<Builder<C, R>> builder) {
         builder.accept((type, cache, repo) -> {
             types.add(type);
             caches.putIfAbsent(type, cache);
             repositories.putIfAbsent(type, repo);
-            pairs.putIfAbsent(type, Pair.of(cache, repo));
+            pairs.putIfAbsent(type, new SimpleEntry(cache, repo));
         });
     }
 
@@ -47,11 +44,11 @@ public class CacheFactory<C extends Cacheable, R extends Repository> {
         return repositories.values();
     }
 
-    public Pair<C, R> getPair(Class type) {
+    public SimpleEntry<C, R> getPair(Class type) {
         return pairs.get(type);
     }
 
-    public Iterable<Pair<C, R>> getPairs() {
+    public Iterable<SimpleEntry<C, R>> getPairs() {
         return pairs.values();
     }
 

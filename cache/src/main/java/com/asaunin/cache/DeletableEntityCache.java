@@ -1,17 +1,11 @@
 package com.asaunin.cache;
 
-import java.util.Collection;
 import java.util.function.Function;
 
-abstract class DeletableExtendedCache<K, V, E extends Deletable> extends ExtendedCache<K, V, E> implements Loadable<E> {
+public abstract class DeletableEntityCache<K, V, E extends Deletable> extends LoadableEntityCache<K, V, E> {
 
-    public DeletableExtendedCache(Function<E, K> entityToKeyMapper, Function<E, V> entityToValueMapper) {
+    public DeletableEntityCache(Function<E, K> entityToKeyMapper, Function<E, V> entityToValueMapper) {
         super(entityToKeyMapper, entityToValueMapper);
-    }
-
-    @Override
-    public void upload(Collection<E> data) {
-        data.forEach(this::put);
     }
 
     @Override
@@ -25,6 +19,6 @@ abstract class DeletableExtendedCache<K, V, E extends Deletable> extends Extende
         }
     }
 
-    abstract void remove(K key, V value);
+    protected abstract void remove(K key, V value);
 
 }

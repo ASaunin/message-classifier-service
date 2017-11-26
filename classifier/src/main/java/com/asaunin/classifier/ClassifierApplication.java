@@ -21,11 +21,11 @@ public class ClassifierApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        try {
-            dataProvider.loadData();
+        final boolean loadSucceed = dataProvider.load();
+        if (loadSucceed) {
             log.info("Data loaded successfully");
-        } catch (Exception ex) {
-            log.error("Failed to load data. Application stopped: {}", ex.getMessage());
+        } else {
+            log.error("Failed to load data. Application stopped");
             System.exit(0);
         }
     }

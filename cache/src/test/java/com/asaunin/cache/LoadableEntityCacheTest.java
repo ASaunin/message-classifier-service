@@ -8,9 +8,9 @@ import java.util.function.Function;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class ExtendedLoadableCacheTest extends ExtendedCache<Boolean, List<String>, Integer> implements Loadable<Integer> {
+public class LoadableEntityCacheTest extends LoadableEntityCache<Boolean, List<String>, Integer> {
 
-    public ExtendedLoadableCacheTest() {
+    public LoadableEntityCacheTest() {
         super(evenOdd, toList);
     }
 

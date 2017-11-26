@@ -1,24 +1,29 @@
 server:
   port: 3300
 
+logging:
+  level:
+    org.springframework.jdbc: debug
+
 spring:
   profiles:
     active: @active.profile@
+
   application:
     name: @project.name@
+
   output:
     ansi:
       enabled: always
 
   datasource:
-    platform: HSQLDB
-    data: classpath*:db/h2/data.sql
-    schema: classpath*:db/h2/schema.sql
+    platform: H2
+    data: classpath*:db/h2/data-h2.sql
+    schema: classpath*:db/h2/schema-h2.sql
 
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
+  jdbc:
+    template:
+      fetch-size: 100
 
 classifier:
   data-update:

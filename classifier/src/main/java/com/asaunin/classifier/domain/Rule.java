@@ -1,33 +1,29 @@
 package com.asaunin.classifier.domain;
 
-import lombok.Data;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Value;
 
-import javax.persistence.*;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
-@Data
-@Entity
-@EqualsAndHashCode(of = "id", callSuper = true)
+@Value
+@EqualsAndHashCode(exclude = {"id", "updatedAt"}, callSuper = true)
 public class Rule extends DeletableEntity {
 
-    @Id
-    @Column(name = "ruleid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    @Column(name = "subcategoryid")
-    private String categoryId;
-
-    @Column(name = "subaccountuid")
+    private Integer subCategoryId;
     private Integer subAccountId;
-
-    @Column(name = "country")
     private String country;
+    private ZonedDateTime updatedAt;
 
-    @Column(name = "updatedat")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Transient
-    private Date updatedAt;
+    @Builder
+    public Rule(Integer id, boolean deleted, Integer subCategoryId, Integer subAccountId, String country, ZonedDateTime updatedAt) {
+        super(deleted);
+        this.id = id;
+        this.subCategoryId = subCategoryId;
+        this.subAccountId = subAccountId;
+        this.country = country;
+        this.updatedAt = updatedAt;
+    }
 
 }

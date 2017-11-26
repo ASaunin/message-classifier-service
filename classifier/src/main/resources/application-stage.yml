@@ -1,14 +1,22 @@
 server:
   port: 3300
 
+logging:
+  level:
+    root: info
+    org.springframework.jdbc: info
+
 spring:
   profiles:
     active: @active.profile@
+
   application:
     name: @project.name@
+
   output:
     ansi:
       enabled: always
+
   main:
     banner-mode: "off"
 
@@ -19,10 +27,10 @@ spring:
       username: ${MSSQL_DB_CLASSIFIER_USERNAME}
       password: ${MSSQL_DB_CLASSIFIER_PASSWORD}
       maximum-pool-size: 4
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: none
+
+  jdbc:
+    template:
+      fetch-size: 100
 
 classifier:
   data-update:

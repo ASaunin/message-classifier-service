@@ -1,11 +1,11 @@
 package com.asaunin.classifier.service;
 
-import com.asaunin.cache.DeletableSimpleCache;
+import com.asaunin.cache.DeletableCache;
 import com.asaunin.classifier.domain.CustomPattern;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomPatternService extends DeletableSimpleCache<Integer, CustomPattern> {
+public class CustomPatternService extends DeletableCache<Integer, CustomPattern> {
 
     public CustomPatternService() {
         super(CustomPattern::getId);

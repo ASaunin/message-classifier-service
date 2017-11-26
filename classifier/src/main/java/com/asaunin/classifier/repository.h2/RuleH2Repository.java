@@ -1,20 +1,19 @@
 package com.asaunin.classifier.repository.h2;
 
-import com.asaunin.classifier.domain.Rule;
 import com.asaunin.classifier.repository.RuleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-
-@Repository
 @Profile("dev")
-public interface RuleH2Repository extends RuleRepository {
+@Repository
+public class RuleH2Repository extends RuleRepository {
 
-    Collection<Rule> findAll();
-
-    @Query("SELECT id, categoryId, subAccountId, country, deleted FROM Rule WHERE updatedAt = :date")
-    Collection<Rule> findByUpdatedAtAfter(String date);
+    public RuleH2Repository(@Autowired JdbcTemplate jdbcTemplate,
+                            @Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        super(jdbcTemplate, namedParameterJdbcTemplate);
+    }
 
 }

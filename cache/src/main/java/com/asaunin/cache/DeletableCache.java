@@ -3,9 +3,9 @@ package com.asaunin.cache;
 import java.util.Collection;
 import java.util.function.Function;
 
-public class DeletableSimpleCache<K, V extends Deletable> extends DeletableExtendedCache<K, V, V> {
+public class DeletableCache<K, V extends Deletable> extends DeletableEntityCache<K, V, V> {
 
-    public DeletableSimpleCache(Function<V, K> keyMapper) {
+    public DeletableCache(Function<V, K> keyMapper) {
         super(keyMapper, Function.identity());
     }
 
@@ -15,7 +15,7 @@ public class DeletableSimpleCache<K, V extends Deletable> extends DeletableExten
     }
 
     @Override
-    void remove(K key, V value) {
+    protected void remove(K key, V value) {
         remove(key);
     }
 
