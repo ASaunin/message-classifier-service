@@ -4,6 +4,8 @@ server:
 logging:
   level:
     org.springframework.jdbc: debug
+    org.springframework.web: debug
+    org.apache.http: debug
 
 spring:
   profiles:
@@ -18,14 +20,17 @@ spring:
 
   datasource:
     platform: H2
-    data: classpath*:db/h2/data-h2.sql
-    schema: classpath*:db/h2/schema-h2.sql
+    data: classpath*:db/h2/data.sql
+    schema: classpath*:db/h2/schema.sql
 
   jdbc:
     template:
       fetch-size: 100
 
 classifier:
+  default:
+    sub-category-id: 0
+
   data-update:
     enabled: true
     initial-delay: 60000

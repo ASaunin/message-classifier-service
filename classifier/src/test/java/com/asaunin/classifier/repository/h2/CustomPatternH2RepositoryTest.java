@@ -49,7 +49,7 @@ public class CustomPatternH2RepositoryTest extends H2RepositoryTestConfiguration
         ruleRepo.save(rule);
 
         pattern = CustomPattern.builder()
-                .ruleId(idCounter.incrementAndGet())
+                .id(idCounter.incrementAndGet())
                 .ruleId(rule.getId())
                 .sender("VIBER")
                 .regex("(.*)")
@@ -60,6 +60,7 @@ public class CustomPatternH2RepositoryTest extends H2RepositoryTestConfiguration
     @Test
     public void findAll() {
         final CustomPattern anotherPattern = CustomPattern.builder()
+                .id(4)
                 .ruleId(rule.getId())
                 .sender("WhatsUp")
                 .regex("(.*)")
@@ -70,7 +71,7 @@ public class CustomPatternH2RepositoryTest extends H2RepositoryTestConfiguration
         assertThat(list)
                 .hasSize(2)
                 .containsExactly(pattern, anotherPattern)
-                .extracting("id").contains(1, 2);
+                .usingElementComparatorIgnoringFields("updatedAt");
     }
 
     @Test
@@ -78,7 +79,8 @@ public class CustomPatternH2RepositoryTest extends H2RepositoryTestConfiguration
         Collection<CustomPattern> list = patternRepo.findByUpdatedAtAfter(updatedAt.minusDays(1));
         assertThat(list)
                 .hasSize(1)
-                .containsExactly(pattern);
+                .containsExactly(pattern)
+                .usingElementComparatorIgnoringFields("updatedAt");
 
         list = patternRepo.findByUpdatedAtAfter(ZonedDateTime.now());
         assertThat(list).isEmpty();

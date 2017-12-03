@@ -7,7 +7,7 @@ import lombok.Value;
 import java.time.ZonedDateTime;
 
 @Value
-@EqualsAndHashCode(exclude = {"id", "updatedAt"}, callSuper = true)
+@EqualsAndHashCode(of = {"id"}, callSuper = true)
 public class SubCategory extends DeletableEntity {
 
     private Integer id;

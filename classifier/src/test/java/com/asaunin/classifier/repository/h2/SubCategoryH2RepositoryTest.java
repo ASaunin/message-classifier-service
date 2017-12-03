@@ -38,6 +38,7 @@ public class SubCategoryH2RepositoryTest extends H2RepositoryTestConfiguration {
     @Test
     public void findAll() {
         final SubCategory anotherSubCategory = SubCategory.builder()
+                .id(2)
                 .name("DEFAULT")
                 .category("DEF")
                 .build();
@@ -46,7 +47,8 @@ public class SubCategoryH2RepositoryTest extends H2RepositoryTestConfiguration {
         final Collection<SubCategory> list = subCategoryRepo.findAll();
         assertThat(list)
                 .hasSize(2)
-                .containsExactly(subCategory, anotherSubCategory);
+                .containsExactly(subCategory, anotherSubCategory)
+                .usingElementComparatorIgnoringFields("updatedAt");
     }
 
     @Test

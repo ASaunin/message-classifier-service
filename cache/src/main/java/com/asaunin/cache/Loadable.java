@@ -5,14 +5,14 @@ import java.util.Collection;
 @FunctionalInterface
 public interface Loadable<E>  {
 
-    default void upload(Collection<E> data) {
+    default void insertAll(Collection<E> data) {
         if (data == null || data.isEmpty()) {
             return;
         }
 
-        data.forEach(this::put);
+        data.forEach(this::insert);
     }
 
-    void put(E e);
+    Object insert(E e);
 
 }

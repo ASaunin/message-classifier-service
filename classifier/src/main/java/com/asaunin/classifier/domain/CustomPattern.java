@@ -7,8 +7,8 @@ import lombok.Value;
 import java.time.ZonedDateTime;
 
 @Value
-@EqualsAndHashCode(exclude = {"id", "updatedAt"}, callSuper = true)
-public class CustomPattern extends DeletableEntity {
+@EqualsAndHashCode(of = {"id"}, callSuper = true)
+public class CustomPattern extends DeletableEntity implements Pattern {
 
     private Integer id;
     private Integer ruleId;

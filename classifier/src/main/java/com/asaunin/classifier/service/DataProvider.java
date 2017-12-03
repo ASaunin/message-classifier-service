@@ -1,6 +1,6 @@
 package com.asaunin.classifier.service;
 
-import com.asaunin.cache.LoadableEntityCache;
+import com.asaunin.cache.LoadableItemCache;
 import com.asaunin.classifier.ClassifierCacheFactory;
 import com.asaunin.classifier.repository.LoadableRepository;
 import lombok.extern.log4j.Log4j2;
@@ -33,24 +33,24 @@ public class DataProvider {
     @SuppressWarnings("unchecked")
     public void update() {
         final boolean uploadSucceed = upload((cache, repo) ->
-                cache.upload(repo.findByUpdatedAtAfter(lastUpdated)));
+                cache.insertAll(repo.findByUpdatedAtAfter(lastUpdated)));
         if (uploadSucceed) {
-            log.info("Scheduled data update proceeded");
+            log.info("Scheduled update from the Db proceeded");
         } else {
-            log.error("Scheduled data update failed");
+            log.error("Scheduled update from the Db failed");
         }
     }
 
     public boolean load() throws Exception {
-        return upload((cache, repo) -> cache.upload(repo.findAll()));
+        return upload((cache, repo) -> cache.insertAll(repo.findAll()));
     }
 
-    private boolean upload(BiConsumer<LoadableEntityCache, LoadableRepository> loader) {
+    private boolean upload(BiConsumer<LoadableItemCache, LoadableRepository> loader) {
         final ZonedDateTime uploadStarted = ZonedDateTime.now();
         final Iterable<Class> types = factory.getTypes();
         boolean uploadSucceed = true;
         for (Class type : types) {
-            final LoadableEntityCache cache = factory.getCache(type);
+            final LoadableItemCache cache = factory.getCache(type);
             final LoadableRepository repo = factory.getRepository(type);
             try {
                 loader.accept(cache, repo);

@@ -70,7 +70,7 @@ public abstract class DefaultPatternRepository implements LoadableRepository<Def
                 .addValue("PatternId", entity.getId())
                 .addValue("Deleted", entity.isDeleted())
                 .addValue("SubCategoryId", entity.getSubCategoryId())
-                .addValue("Country", entity.getCountry())
+                .addValue("Country", entity.getCountry().getName())
                 .addValue("SenderId", entity.getSender())
                 .addValue("BodyPattern", entity.getRegex());
     }

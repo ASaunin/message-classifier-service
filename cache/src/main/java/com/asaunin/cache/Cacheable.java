@@ -1,9 +1,5 @@
 package com.asaunin.cache;
 
-import java.util.AbstractMap;
-import java.util.Map;
-import java.util.Optional;
-
 @SuppressWarnings("SpellCheckingInspection")
 public interface Cacheable<K, V> {
 
@@ -11,14 +7,12 @@ public interface Cacheable<K, V> {
 
     boolean isEmpty();
 
-    boolean containsKey(K key);
-
     void clear();
 
-    Optional<V> put(K key, V value);
+    V get(K key);
 
-    Optional<V> get(K key);
+    V remove(K key);
 
-    Optional<V> remove(K key);
+    boolean containsKey(K key);
 
 }

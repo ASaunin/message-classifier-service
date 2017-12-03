@@ -50,6 +50,7 @@ public class DefaultPatternH2RepositoryTest extends H2RepositoryTestConfiguratio
     @Test
     public void findAll() {
         final DefaultPattern anotherPattern = DefaultPattern.builder()
+                .id(3)
                 .subCategoryId(subCategory.getId())
                 .sender("WhatsUp")
                 .country("RU")
@@ -60,7 +61,8 @@ public class DefaultPatternH2RepositoryTest extends H2RepositoryTestConfiguratio
         final Collection<DefaultPattern> list = patternRepo.findAll();
         assertThat(list)
                 .hasSize(2)
-                .containsExactly(pattern, anotherPattern);
+                .containsExactly(pattern, anotherPattern)
+                .usingElementComparatorIgnoringFields("updatedAt");
     }
 
     @Test

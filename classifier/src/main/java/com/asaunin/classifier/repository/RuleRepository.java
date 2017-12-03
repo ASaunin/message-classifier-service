@@ -1,5 +1,7 @@
 package com.asaunin.classifier.repository;
 
+import com.asaunin.classifier.domain.Country;
+import com.asaunin.classifier.domain.RealCountry;
 import com.asaunin.classifier.domain.Rule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -70,7 +72,7 @@ public abstract class RuleRepository implements LoadableRepository<Rule> {
                 .addValue("Deleted", entity.isDeleted())
                 .addValue("SubCategoryId", entity.getSubCategoryId())
                 .addValue("SubAccountUid", entity.getSubAccountId())
-                .addValue("Country", entity.getCountry());
+                .addValue("Country", entity.getCountry().getName());
     }
 
 }

@@ -3,7 +3,8 @@ server:
 
 logging:
   level:
-    root: info
+    root: INFO
+    org.springframework.web: info
     org.springframework.jdbc: info
 
 spring:
@@ -33,6 +34,9 @@ spring:
       fetch-size: 100
 
 classifier:
+  default:
+    sub-category-id: 0
+
   data-update:
     enabled: true
     initial-delay: 60000

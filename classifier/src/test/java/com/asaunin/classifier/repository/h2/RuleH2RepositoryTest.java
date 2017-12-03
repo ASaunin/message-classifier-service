@@ -2,12 +2,10 @@ package com.asaunin.classifier.repository.h2;
 
 import com.asaunin.classifier.domain.Rule;
 import com.asaunin.classifier.domain.SubCategory;
-import com.asaunin.classifier.service.DataProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.ZonedDateTime;
@@ -51,6 +49,7 @@ public class RuleH2RepositoryTest extends H2RepositoryTestConfiguration {
     @Test
     public void findAll() {
         final Rule anotherRule = Rule.builder()
+                .id(3)
                 .subCategoryId(subCategory.getId())
                 .subAccountId(1)
                 .country("RU")
@@ -60,7 +59,8 @@ public class RuleH2RepositoryTest extends H2RepositoryTestConfiguration {
         final Collection<Rule> list = ruleRepo.findAll();
         assertThat(list)
                 .hasSize(2)
-                .containsExactly(rule, anotherRule);
+                .containsExactly(rule, anotherRule)
+                .usingElementComparatorIgnoringFields("updatedAt");
     }
 
     @Test

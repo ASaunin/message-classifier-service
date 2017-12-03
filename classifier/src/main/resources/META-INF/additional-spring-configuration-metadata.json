@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "classifier.default.sub-category-id",
+      "type": "java.lang.Integer",
+      "sourceType": "com.asaunin.classifier.service.CategoryService",
+      "description": "Id for the default subcategory."
+    },
+    {
+      "name": "classifier.data-update.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.asaunin.classifier.service.DataProvider",
+      "description": "Enables scheduled update from the Db."
+    },
+    {
+      "name": "classifier.data-update.initial-delay",
+      "type": "java.lang.Integer",
+      "sourceType": "com.asaunin.classifier.service.DataProvider",
+      "description": "Scheduled update initial delay interval."
+    },
+    {
+      "name": "classifier.data-update.fixed-rate",
+      "type": "java.lang.Integer",
+      "sourceType": "com.asaunin.classifier.service.DataProvider",
+      "description": "Scheduled update fixed rate interval."
+    }
+  ]
+}

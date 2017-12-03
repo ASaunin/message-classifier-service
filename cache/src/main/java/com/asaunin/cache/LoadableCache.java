@@ -1,17 +1,26 @@
 package com.asaunin.cache;
 
-import java.util.function.Function;
+import java.util.Map;
 
-public class LoadableCache<K, V> extends LoadableEntityCache<K, V, V> {
+public abstract class LoadableCache<K, V> extends LoadableItemCache<K, V, V, V> {
 
-    public LoadableCache(Function<V, K> entityToKeyMapper) {
-        super(entityToKeyMapper, Function.identity());
+    public LoadableCache(Map<K, V> cache) {
+        this(cache, false);
+    }
+
+    public LoadableCache(Map<K, V> cache, boolean permitNullCache) {
+        super(cache, permitNullCache);
     }
 
     @Override
-    public void put(V entity) {
-        final K key = entityToKeyMapper.apply(entity);
-        put(key, entity);
+    protected V mapToItem(V entity) {
+        return entity;
+    }
+
+    @Override
+    protected V insert(K key, V item) {
+        put(key, item);
+        return item;
     }
 
 }

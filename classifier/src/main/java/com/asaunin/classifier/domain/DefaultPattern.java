@@ -7,12 +7,12 @@ import lombok.Value;
 import java.time.ZonedDateTime;
 
 @Value
-@EqualsAndHashCode(exclude = {"id", "updatedAt"}, callSuper = true)
-public class DefaultPattern extends DeletableEntity {
+@EqualsAndHashCode(of = {"id"}, callSuper = true)
+public class DefaultPattern extends DeletableEntity implements Pattern {
 
     private Integer id;
     private Integer subCategoryId;
-    private String country;
+    private Country country;
     private String sender;
     private String regex;
     private ZonedDateTime updatedAt;
@@ -22,7 +22,7 @@ public class DefaultPattern extends DeletableEntity {
         super(deleted);
         this.id = id;
         this.subCategoryId = subCategoryId;
-        this.country = country;
+        this.country = Country.of(country);
         this.sender = sender;
         this.regex = regex;
         this.updatedAt = updatedAt;

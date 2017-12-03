@@ -7,13 +7,13 @@ import lombok.Value;
 import java.time.ZonedDateTime;
 
 @Value
-@EqualsAndHashCode(exclude = {"id", "updatedAt"}, callSuper = true)
+@EqualsAndHashCode(of = {"id"}, callSuper = true)
 public class Rule extends DeletableEntity {
 
     private Integer id;
     private Integer subCategoryId;
     private Integer subAccountId;
-    private String country;
+    private Country country;
     private ZonedDateTime updatedAt;
 
     @Builder
@@ -22,7 +22,7 @@ public class Rule extends DeletableEntity {
         this.id = id;
         this.subCategoryId = subCategoryId;
         this.subAccountId = subAccountId;
-        this.country = country;
+        this.country = Country.of(country);
         this.updatedAt = updatedAt;
     }
 

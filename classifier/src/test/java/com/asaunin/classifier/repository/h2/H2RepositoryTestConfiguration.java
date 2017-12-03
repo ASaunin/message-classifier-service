@@ -13,6 +13,6 @@ import org.springframework.test.context.TestPropertySource;
 @JdbcTest
 @TestPropertySource(properties = "spring.datasource.data:")
 @IfProfileValue(name = "active.profile", value = "dev")
-class H2RepositoryTestConfiguration {
+public class H2RepositoryTestConfiguration {
 
 }

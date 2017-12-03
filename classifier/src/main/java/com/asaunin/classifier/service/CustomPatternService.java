@@ -1,18 +1,30 @@
 package com.asaunin.classifier.service;
 
-import com.asaunin.cache.DeletableCache;
+import com.asaunin.classifier.cache.ListableCache;
 import com.asaunin.classifier.domain.CustomPattern;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
+
 @Service
-public class CustomPatternService extends DeletableCache<Integer, CustomPattern> {
+public class CustomPatternService extends ListableCache<Integer, CustomPattern> {
 
     public CustomPatternService() {
-        super(CustomPattern::getId);
+        super(new ConcurrentHashMap<>());
     }
 
-    public Integer findSubCategory(String country, String senderId, String text) {
-        return 0;
+    @Override
+    protected Integer mapToKey(CustomPattern entity) {
+        return entity.getRuleId();
+    }
+
+    public Stream<CustomPattern> findPatternsBy(Integer ruleId) {
+        return Optional.ofNullable(get(ruleId))
+                .orElse(Collections.emptyList())
+                .stream();
     }
 
 }

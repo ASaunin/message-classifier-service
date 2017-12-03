@@ -1,11 +1,10 @@
 package com.asaunin.classifier.service;
 
-import com.asaunin.classifier.domain.Rule;
-import com.asaunin.classifier.domain.SubCategory;
+import com.asaunin.classifier.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClassifierService {
@@ -25,15 +24,45 @@ public class ClassifierService {
         this.customPatternService = customPatternService;
     }
 
-    public SubCategory classify(Integer subAccountId, String country, String senderId, String text) {
+    public SubCategory classify(Integer subAccountId, Country country, String sender, String text) {
 
-        final List<Rule> rules = ruleService.findBySubAccountId(subAccountId);
+        // Find custom rules matching
+        final Optional<Rule> rule =
+                ruleService.findRulesBy(subAccountId, country)
+                        .filter(r -> customPatternService
+                                .findPatternsBy(r.getId())
+                                .filter(pattern -> pattern.matchingBySender(sender))
+                                .anyMatch(pattern -> pattern.matchingByText(text)))
+                        .findFirst();
 
-        final Integer subCategoryId = defaultPatternService.findSubCategory(country, senderId, text);
+        if (rule.isPresent()) {
+            final Integer subCategoryId = rule.get().getSubCategoryId();
+            return categoryService.findById(subCategoryId);
+        }
 
-        final SubCategory subCategory = categoryService.findById(subCategoryId);
+        // Find default rules matching by country
+        Optional<DefaultPattern> patternByCountry = defaultPatternService
+                .findPatternsBy(country)
+                .filter(pattern -> pattern.matchingBySender(sender))
+                .filter(pattern -> pattern.matchingByText(text))
+                .findFirst();
 
-        return subCategory;
+        // Find default rules matching by any country
+        if (!patternByCountry.isPresent()) {
+            patternByCountry = defaultPatternService
+                    .findPatternsBy(AnyCountry.getInstance())
+                    .filter(pattern -> pattern.matchingBySender(sender))
+                    .filter(pattern -> pattern.matchingByText(text))
+                    .findFirst();
+        }
+
+        // Find category
+        if (patternByCountry.isPresent()) {
+            final Integer subCategoryId = patternByCountry.get().getSubCategoryId();
+            return categoryService.findById(subCategoryId);
+        }
+
+        return categoryService.getDefaultSubCategory();
     }
 
 }

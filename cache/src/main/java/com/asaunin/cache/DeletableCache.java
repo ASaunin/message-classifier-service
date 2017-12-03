@@ -1,22 +1,32 @@
 package com.asaunin.cache;
 
-import java.util.Collection;
-import java.util.function.Function;
+import java.util.Map;
 
-public class DeletableCache<K, V extends Deletable> extends DeletableEntityCache<K, V, V> {
+public abstract class DeletableCache<K, V extends Deletable> extends DeletableItemCache<K, V, V, V> {
 
-    public DeletableCache(Function<V, K> keyMapper) {
-        super(keyMapper, Function.identity());
+    public DeletableCache(Map<K, V> cache) {
+        this(cache, false);
+    }
+
+    public DeletableCache(Map<K, V> cache, boolean permitNullCache) {
+        super(cache, permitNullCache);
     }
 
     @Override
-    public void upload(Collection<V> data) {
-        data.forEach(this::put);
+    protected V mapToItem(V entity) {
+        return entity;
     }
 
     @Override
-    protected void remove(K key, V value) {
+    protected V insert(K key, V item) {
+        put(key, item);
+        return item;
+    }
+
+    @Override
+    protected V exclude(K key, V item) {
         remove(key);
+        return null;
     }
 
 }

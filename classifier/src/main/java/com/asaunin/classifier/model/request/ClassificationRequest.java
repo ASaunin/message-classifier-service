@@ -8,9 +8,9 @@ import lombok.Value;
 @EqualsAndHashCode(callSuper = true)
 public class ClassificationRequest extends BaseRequest {
 
-    @JsonProperty("source")
-    private final String senderId;
-    @JsonProperty("source")
+    @JsonProperty(value = "source", required = true)
+    private final String sender;
+    @JsonProperty(value = "body")
     private final String text;
 
 }

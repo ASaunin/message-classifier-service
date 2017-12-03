@@ -1,7 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS cls;
 
--- SET SCHEMA cls;
-
 DROP TABLE IF EXISTS cls.SubCategory;
 
 CREATE TABLE cls.SubCategory (
