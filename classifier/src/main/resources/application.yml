@@ -1,5 +1,10 @@
 server:
-  port: 3300
+  port: 8080
+
+api:
+  name: @project.name@
+  description: @project.description@
+  version: @project.version@
 
 logging:
   level:

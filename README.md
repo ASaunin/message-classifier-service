@@ -61,7 +61,7 @@ mvnw clean install
 ```
 mvnw spring-boot:run -pl classifier
 ```
-You can customize your own classification rules in appropriate H2 file: `\classifier\src\main\resources\db\h2\data.sql`
+You can customize your own classification rules in appropriate [H2 data file](classifier/src/main/resources/db/h2/data.sql)
 
 ### Staging / Production mode
 
@@ -71,3 +71,8 @@ mvnw spring-boot:run -pl classifier -Dactive.profile=stage
 Using `stage` or `prod` mode, you need to:
 - setup MSSQL database with your own correct schema & data
 - configure datasource url & credentials in `application-{env}.yml`
+
+## Swagger support
+
+Use [Swagger-UI endpoint](http://localhost:8080/swagger-ui.html) to get API description
+

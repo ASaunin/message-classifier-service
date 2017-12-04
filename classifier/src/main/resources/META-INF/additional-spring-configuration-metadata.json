@@ -1,6 +1,24 @@
 {
   "properties": [
     {
+      "name": "api.name",
+      "type": "java.lang.String",
+      "sourceType": "com.asaunin.classifier.config.SwaggerConfig",
+      "description": "Application name."
+    },
+    {
+      "name": "api.description",
+      "type": "java.lang.String",
+      "sourceType": "com.asaunin.classifier.config.SwaggerConfig",
+      "description": "Application description."
+    },
+    {
+      "name": "api.version",
+      "type": "java.lang.String",
+      "sourceType": "com.asaunin.classifier.config.SwaggerConfig",
+      "description": "Application version."
+    },
+    {
       "name": "classifier.default.sub-category-id",
       "type": "java.lang.Integer",
       "sourceType": "com.asaunin.classifier.service.CategoryService",
