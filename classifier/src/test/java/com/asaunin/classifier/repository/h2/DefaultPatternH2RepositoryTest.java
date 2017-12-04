@@ -42,7 +42,7 @@ public class DefaultPatternH2RepositoryTest extends H2RepositoryTestConfiguratio
                 .subCategoryId(subCategory.getId())
                 .sender("VIBER")
                 .country("RU")
-                .regex("(.*)")
+                .text("(.*)")
                 .build();
         patternRepo.save(pattern);
     }
@@ -54,7 +54,7 @@ public class DefaultPatternH2RepositoryTest extends H2RepositoryTestConfiguratio
                 .subCategoryId(subCategory.getId())
                 .sender("WhatsUp")
                 .country("RU")
-                .regex("(.*)")
+                .text("(.*)")
                 .build();
         patternRepo.save(anotherPattern);
 

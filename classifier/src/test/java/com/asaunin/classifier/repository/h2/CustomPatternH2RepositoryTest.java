@@ -52,7 +52,7 @@ public class CustomPatternH2RepositoryTest extends H2RepositoryTestConfiguration
                 .id(idCounter.incrementAndGet())
                 .ruleId(rule.getId())
                 .sender("VIBER")
-                .regex("(.*)")
+                .text("(.*)")
                 .build();
         patternRepo.save(pattern);
     }
@@ -63,7 +63,7 @@ public class CustomPatternH2RepositoryTest extends H2RepositoryTestConfiguration
                 .id(4)
                 .ruleId(rule.getId())
                 .sender("WhatsUp")
-                .regex("(.*)")
+                .text("(.*)")
                 .build();
         patternRepo.save(anotherPattern);
 

@@ -55,7 +55,7 @@ public abstract class DefaultPatternRepository implements LoadableRepository<Def
                 .subCategoryId(rs.getInt("SubCategoryId"))
                 .country(rs.getString("Country"))
                 .sender(rs.getString("SenderId"))
-                .regex(rs.getString("BodyPattern"))
+                .text(rs.getString("BodyPattern"))
                 .updatedAt(hasColumn(rs, "UpdatedAt") ?
                         ZonedDateTime.ofInstant(
                                 rs.getTimestamp("UpdatedAt").toInstant(),
@@ -72,7 +72,7 @@ public abstract class DefaultPatternRepository implements LoadableRepository<Def
                 .addValue("SubCategoryId", entity.getSubCategoryId())
                 .addValue("Country", entity.getCountry().getName())
                 .addValue("SenderId", entity.getSender())
-                .addValue("BodyPattern", entity.getRegex());
+                .addValue("BodyPattern", entity.getText());
     }
 
 }

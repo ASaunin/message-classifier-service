@@ -37,7 +37,7 @@ public class DefaultPatternServiceTest {
         DefaultPattern pattern = DefaultPattern.builder()
                 .id(1)
                 .country("RU")
-                .regex(".*")
+                .text(".*")
                 .sender("VIBER")
                 .subCategoryId(1)
                 .build();
@@ -46,7 +46,7 @@ public class DefaultPatternServiceTest {
 
         pattern = DefaultPattern.builder()
                 .id(1)
-                .regex(".*")
+                .text(".*")
                 .sender("VIBER")
                 .subCategoryId(1)
                 .build();
@@ -59,7 +59,7 @@ public class DefaultPatternServiceTest {
         final DefaultPattern patternRu = DefaultPattern.builder()
                 .id(1)
                 .country("RU")
-                .regex(".*")
+                .text(".*")
                 .sender("VIBER")
                 .subCategoryId(1)
                 .build();
@@ -67,7 +67,7 @@ public class DefaultPatternServiceTest {
 
         final DefaultPattern patternAny = DefaultPattern.builder()
                 .id(2)
-                .regex("123")
+                .text("123")
                 .updatedAt(ZonedDateTime.now())
                 .sender("Alex Saunin")
                 .build();

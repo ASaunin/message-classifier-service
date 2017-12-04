@@ -54,7 +54,7 @@ public abstract class CustomPatternRepository implements LoadableRepository<Cust
                 .deleted(rs.getBoolean("Deleted"))
                 .ruleId(rs.getInt("RuleId"))
                 .sender(rs.getString("SenderId"))
-                .regex(rs.getString("BodyPattern"))
+                .text(rs.getString("BodyPattern"))
                 .updatedAt(hasColumn(rs, "UpdatedAt") ?
                         ZonedDateTime.ofInstant(
                                 rs.getTimestamp("UpdatedAt").toInstant(),
@@ -71,7 +71,7 @@ public abstract class CustomPatternRepository implements LoadableRepository<Cust
                 .addValue("Deleted", entity.isDeleted())
                 .addValue("RuleId", entity.getRuleId())
                 .addValue("SenderId", entity.getSender())
-                .addValue("BodyPattern", entity.getRegex());
+                .addValue("BodyPattern", entity.getText());
     }
 
 }

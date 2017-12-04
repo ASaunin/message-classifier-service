@@ -163,7 +163,7 @@ public class ClassifierServiceTest {
                         .id(1)
                         .ruleId(1)
                         .sender(".*")
-                        .regex(".*")
+                        .text(".*")
                         .build());
 
         customPatternService.insert(
@@ -171,7 +171,7 @@ public class ClassifierServiceTest {
                         .id(2)
                         .ruleId(2)
                         .sender(".*")
-                        .regex(".*")
+                        .text(".*")
                         .build());
 
         customPatternService.insert(
@@ -179,7 +179,7 @@ public class ClassifierServiceTest {
                         .id(3)
                         .ruleId(3)
                         .sender("VIBER")
-                        .regex(".*")
+                        .text(".*")
                         .build());
 
         customPatternService.insert(
@@ -187,7 +187,7 @@ public class ClassifierServiceTest {
                         .id(4)
                         .ruleId(4)
                         .sender(".*")
-                        .regex("(.*)(Hello, Alex Saunin!)(.*)")
+                        .text("(.*)(Hello, Alex Saunin!)(.*)")
                         .build());
 
         customPatternService.insert(
@@ -195,7 +195,7 @@ public class ClassifierServiceTest {
                         .id(5)
                         .ruleId(5)
                         .sender("VIBER")
-                        .regex("(.*)(Hello, Alex Saunin!)(.*)")
+                        .text("(.*)(Hello, Alex Saunin!)(.*)")
                         .build());
 
         customPatternService.insert(
@@ -203,7 +203,7 @@ public class ClassifierServiceTest {
                         .id(7)
                         .ruleId(7)
                         .sender("VIBER")
-                        .regex("(.*)(Hello, Alex Saunin!)(.*)")
+                        .text("(.*)(Hello, Alex Saunin!)(.*)")
                         .build());
     }
 
@@ -214,7 +214,7 @@ public class ClassifierServiceTest {
                         .subCategoryId(-1)
                         .country("Default any text & sender matching & no category")
                         .sender(".*")
-                        .regex(".*")
+                        .text(".*")
                         .build());
 
         defaultPatternService.insert(
@@ -223,7 +223,7 @@ public class ClassifierServiceTest {
                         .subCategoryId(6)
                         .country("Default any text & sender matching")
                         .sender(".*")
-                        .regex(".*")
+                        .text(".*")
                         .build());
 
         defaultPatternService.insert(
@@ -232,7 +232,7 @@ public class ClassifierServiceTest {
                         .subCategoryId(6)
                         .country("Default any text matching")
                         .sender("VIBER")
-                        .regex(".*")
+                        .text(".*")
                         .build());
 
         defaultPatternService.insert(
@@ -241,7 +241,7 @@ public class ClassifierServiceTest {
                         .subCategoryId(6)
                         .country("Default any sender matching")
                         .sender(".*")
-                        .regex("(.*)(Hello, Alex Saunin!)(.*)")
+                        .text("(.*)(Hello, Alex Saunin!)(.*)")
                         .build());
 
         defaultPatternService.insert(
@@ -250,7 +250,7 @@ public class ClassifierServiceTest {
                         .subCategoryId(6)
                         .country("Default matching")
                         .sender("VIBER")
-                        .regex("(.*)(Hello, Alex Saunin!)(.*)")
+                        .text("(.*)(Hello, Alex Saunin!)(.*)")
                         .build());
 
         defaultPatternService.insert(
@@ -259,7 +259,7 @@ public class ClassifierServiceTest {
                         .subCategoryId(6)
                         .country("No default matching")
                         .sender("VIBER")
-                        .regex("(.*)(Hello, Alex Saunin!)(.*)")
+                        .text("(.*)(Hello, Alex Saunin!)(.*)")
                         .build());
 
         defaultPatternService.insert(
@@ -267,7 +267,7 @@ public class ClassifierServiceTest {
                         .id(7)
                         .subCategoryId(6)
                         .sender("NoCountry")
-                        .regex("(.*)(Hello, NoCountry!)(.*)")
+                        .text("(.*)(Hello, NoCountry!)(.*)")
                         .build());
     }
 

@@ -35,7 +35,7 @@ public class CustomPatternServiceTest {
         final CustomPattern pattern = CustomPattern.builder()
                 .id(1)
                 .ruleId(1)
-                .regex(".*")
+                .text(".*")
                 .sender("VIBER")
                 .build();
 
@@ -47,7 +47,7 @@ public class CustomPatternServiceTest {
         final CustomPattern patternRu = CustomPattern.builder()
                 .id(1)
                 .ruleId(1)
-                .regex(".*")
+                .text(".*")
                 .sender("VIBER")
                 .build();
         cache.insert(patternRu);
@@ -55,7 +55,7 @@ public class CustomPatternServiceTest {
         final CustomPattern patternAny = CustomPattern.builder()
                 .id(2)
                 .ruleId(2)
-                .regex("123")
+                .text("123")
                 .sender("Alex Saunin")
                 .updatedAt(ZonedDateTime.now())
                 .build();
