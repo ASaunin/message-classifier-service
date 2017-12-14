@@ -44,7 +44,7 @@ You can easily customise your own caches according to your requirements. For exa
 #### Classifier service
 
 Service is a RESTful API rules engine, which classifies sms's into different types. 
-According to the performance requirements, all the data are stored in fast cached structures above described.
+According to the performance requirements, all the data are stored in fast cached structures described above.
 
 ## Installation
 
@@ -74,5 +74,5 @@ Using `stage` or `prod` mode, you need to:
 
 ## Swagger support
 
-Use [Swagger-UI endpoint](http://localhost:8080/swagger-ui.html) to get API description
+Use [Swagger-UI endpoint](http://localhost:8080/swagger-ui.html) to get an API description
 

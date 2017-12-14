@@ -2,7 +2,7 @@ package com.asaunin.classifier.config;
 
 import com.google.common.base.Predicates;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -15,15 +15,13 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
+@ConfigurationProperties("api")
 @EnableSwagger2
 @Setter
 public class SwaggerConfig {
 
-    @Value("${api.version}")
     private String version;
-    @Value("${api.name}")
-    private String title;
-    @Value("${api.description}")
+    private String name;
     private String description;
 
     @Bean
@@ -39,7 +37,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title(title)
+                .title(name)
                 .description(description)
                 .contact(new Contact("Alex Saunin", "https://github.com/ASaunin", ""))
                 .version(version)
