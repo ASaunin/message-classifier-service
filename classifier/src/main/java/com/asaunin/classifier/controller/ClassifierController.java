@@ -37,8 +37,8 @@ public class ClassifierController {
             @ApiResponse(code = 500, message = "Internal error")
     })
     @PostMapping(value = "/{subAccount}/{country}")
-    public ResponseEntity classify(
-            @ApiParam(value = "SubAccount Id", defaultValue = "1") @PathVariable("subAccount") Integer subAccount,
+    public ResponseEntity<?> classify(
+            @ApiParam(value = "SubAccount Id", defaultValue = "1", required = true) @PathVariable("subAccount") Integer subAccount,
             @ApiParam(value = "Country code", defaultValue = "RU") @PathVariable("country") String countryName,
             @ApiParam(value = "Request") @RequestBody ClassificationRequest request) {
         log.debug("REST request to subAccount: {}, country: {}", subAccount, countryName);
